@@ -22,7 +22,7 @@ export { coloMap, getColoName } from './colo';
 // =================================================================
 
 /**
- * 将 IPv4 地址转换为十六进制，用于 nip.lfree.org 技巧
+ * 将 IPv4 地址转换为十六进制，用于 nip.cmliussss.hidns.vip 技巧
  */
 function ipToHex(ip: string): string | null {
     const ipv4Regex = /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
@@ -41,7 +41,7 @@ async function testIpLatency(ip: string, port: number, timeout: number): Promise
     const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     const hexIp = ipToHex(ip);    
-    const testDomain = hexIp ? `${hexIp}.nip.lfree.org` : `${ip}.nip.lfree.org`;    
+    const testDomain = hexIp ? `${hexIp}.nip.cmliussss.hidns.vip` : `${ip}.nip.cmliussss.hidns.vip`;    
     const testUrl = `https://${testDomain}:${port}`;
 
     try {

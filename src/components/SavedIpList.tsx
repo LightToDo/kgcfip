@@ -5,6 +5,7 @@ import { getColoName } from '../utils/colo';
 import { useToast } from './Toast';
 import { useConfirm } from './ConfirmDialog'; // Import Trash2 and RotateCw
 import { ListChecks, Trash2, RotateCw, FileText, File, Copy } from 'lucide-react';
+import { RegionDisplay } from './RegionDisplay';
 
 // Type for data stored in KV, which does not include `isAvailable`
 interface SavedIpData {
@@ -305,7 +306,7 @@ export function SavedIpList() {
                                         {item.latency > -1 ? `${item.latency}ms` : 'N/A'}
                                     </td>
                                     <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{item.colo || '-'}</td>
-                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{getColoName(item.colo || '')}</td>
+                                    <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{item.colo ? <RegionDisplay colo={item.colo} flagSize="sm" /> : '-'}</td>
                                     <td className="px-4 py-2 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{item.sceneName}</td>
                                 </tr>
                             ))

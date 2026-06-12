@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { saveResults } from '../api';
 import {
-  getColoName,
   ScanResult,
   getLatencyColor,
 } from '../utils/scanner';
 import { useToast } from './Toast';
 import { ListFilter, Save } from 'lucide-react';
+import { RegionDisplay } from './RegionDisplay';
+import { NumberInput } from './NumberInput';
 
 export { ScannerResults };
 interface IpScannerResultsAndSaveProps {
@@ -100,11 +101,10 @@ function ScannerResults({ scanResults, onSaveSuccess }: IpScannerResultsAndSaveP
                                     <label htmlFor="latency-filter-enable" className="text-sm text-gray-600 dark:text-gray-300 cursor-pointer select-none">延迟 &lt;</label>
                                 </div>                                
                                  <div className="flex items-center gap-2">
-                                    <input
+                                    <NumberInput
                                         id="latency-filter-value"
-                                        type="number"
                                         value={latencyFilterValue}
-                                        onChange={(e) => setLatencyFilterValue(parseInt(e.target.value, 10) || 0)}
+                                        onChange={(n) => setLatencyFilterValue(n || 0)}
                                         className="p-1 border rounded-md w-20 text-sm dark:bg-gray-600 dark:border-gray-500 dark:text-white disabled:bg-gray-200 dark:disabled:bg-gray-800"
                                         disabled={!isLatencyFilterEnabled}
                                     />
@@ -120,11 +120,11 @@ function ScannerResults({ scanResults, onSaveSuccess }: IpScannerResultsAndSaveP
                                     />
                                     <label htmlFor="region-limit-enable" className="text-sm text-gray-600 dark:text-gray-300 cursor-pointer select-none">地区IP &lt;=</label>
                                 </div>
-                                <input
+                                <NumberInput
                                     id="ips-per-region"
-                                    type="number"
                                     value={ipsPerRegion}
-                                    onChange={(e) => setIpsPerRegion(parseInt(e.target.value, 10) || DEFAULT_IPS_PER_REGION)}
+                                    onChange={(n) => setIpsPerRegion(n || DEFAULT_IPS_PER_REGION)}
+                                    min={1}
                                     className="p-1 border rounded-md w-20 text-sm dark:bg-gray-600 dark:border-gray-500 dark:text-white disabled:bg-gray-200 dark:disabled:bg-gray-800"
                                     disabled={!isRegionLimitEnabled}
                                 />
@@ -153,7 +153,7 @@ function ScannerResults({ scanResults, onSaveSuccess }: IpScannerResultsAndSaveP
                                 const countForRegion = regionCounts[region] || 0;
                                 const displayCount = isRegionLimitEnabled ? Math.min(countForRegion, ipsPerRegion) : countForRegion;
                                 return (
-                                    <label key={region} className="inline-flex items-center space-x-1 bg-white dark:bg-gray-600 px-2 py-1 rounded border border-gray-200 dark:border-gray-500 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors">
+                                    <label key={region} className="inline-flex items-center space-x-1 text-xs text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-600 px-2 py-1 rounded border border-gray-200 dark:border-gray-500 cursor-pointer select-none hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors">
                                         <input
                                             type="checkbox"
                                             checked={!unselectedRegions.has(region)}
@@ -168,7 +168,7 @@ function ScannerResults({ scanResults, onSaveSuccess }: IpScannerResultsAndSaveP
                                             }}
                                             className="rounded text-purple-600 focus:ring-purple-500 h-3 w-3"
                                         />
-                                        <span className="text-xs text-gray-700 dark:text-gray-200">{getColoName(region)} ({displayCount})</span>
+                                        <RegionDisplay colo={region} flagSize="xs" /> <span>({displayCount})</span>
                                     </label>
                                 );
                             })}
@@ -190,7 +190,7 @@ function ScannerResults({ scanResults, onSaveSuccess }: IpScannerResultsAndSaveP
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-900 dark:text-white">{ip}</td>
                                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{port}</td>
                                     <td className={`px-6 py-4 whitespace-nowrap text-sm font-bold ${getLatencyColor(latency)}`}>{latency > -1 ? `${latency}ms` : 'N/A'}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{colo ? getColoName(colo) : '-'}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{colo ? <RegionDisplay colo={colo} flagSize="sm" /> : '-'}</td>
                                 </tr>
                             ))}
                         </tbody>

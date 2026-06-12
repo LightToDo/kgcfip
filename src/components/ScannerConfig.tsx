@@ -9,6 +9,7 @@ import {
 import { useToast } from './Toast';
 import { Gauge, Play, StopCircle, Loader2 } from 'lucide-react';
 import { useConfirm } from './ConfirmDialog';
+import { NumberInput } from './NumberInput';
 
 interface IpScannerConfigAndControlProps {
     cfIps: CloudflareIps | null;
@@ -206,7 +207,7 @@ function ScannerConfig({ cfIps, onScanComplete }: IpScannerConfigAndControlProps
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                 <div>
                     <label htmlFor="ip-count" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1">随机IP数量:</label>
-                    <input id="ip-count" type="number" value={count} onChange={(e) => setCount(parseInt(e.target.value, 10) || 0)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-50" disabled={isScanning || isPreparing || ipSource === 'third'} />
+                    <NumberInput id="ip-count" value={count} onChange={(n) => setCount(n || 0)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-50" disabled={isScanning || isPreparing || ipSource === 'third'} />
                 </div>
                 <div>
                     <label htmlFor="port-select" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1">端口:</label>
@@ -218,11 +219,11 @@ function ScannerConfig({ cfIps, onScanComplete }: IpScannerConfigAndControlProps
                 </div>
                 <div>
                     <label htmlFor="threads-count" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1">线程数:</label>
-                    <input id="threads-count" type="number" value={threads} onChange={(e) => setThreads(parseInt(e.target.value, 10) || 1)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-50" disabled={isScanning || isPreparing} />
+                    <NumberInput id="threads-count" value={threads} onChange={(n) => setThreads(n || 1)} min={1} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-50" disabled={isScanning || isPreparing} />
                 </div>
                 <div>
                     <label htmlFor="latency-limit" className="block text-gray-700 dark:text-gray-300 text-sm font-bold mb-1">延迟限制(ms):</label>
-                    <input id="latency-limit" type="number" value={latencyLimit} onChange={(e) => setLatencyLimit(parseInt(e.target.value, 10) || 2000)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-50" disabled={isScanning || isPreparing} />
+                    <NumberInput id="latency-limit" value={latencyLimit} onChange={(n) => setLatencyLimit(n || 2000)} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 dark:text-white dark:bg-gray-700 dark:border-gray-600 leading-tight focus:outline-none focus:shadow-outline disabled:opacity-50" disabled={isScanning || isPreparing} />
                 </div>
 
             </div>

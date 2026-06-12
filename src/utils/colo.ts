@@ -63,3 +63,105 @@ export const coloMap: { [key: string]: string } = {
 export const getColoName = (colo: string): string => {
     return coloMap[colo.toUpperCase()] || colo;
 };
+
+/**
+ * Cloudflare colo 代码到国家/地区代码 (ISO 3166-1 alpha-2 小写) 的映射
+ * 用于在 Windows 系统下拼接国旗图片 URL (https://ipdata.co/flags/<code>.png)
+ */
+export const coloCountryMap: { [key: string]: string } = {
+    'SJC': 'us', 'LAX': 'us', 'SEA': 'us', 'SFO': 'us', 'DFW': 'us',
+    'ORD': 'us', 'IAD': 'us', 'ATL': 'us', 'MIA': 'us', 'DEN': 'us',
+    'PHX': 'us', 'BOS': 'us', 'EWR': 'us', 'JFK': 'us', 'LAS': 'us',
+    'MSP': 'us', 'DTW': 'us', 'PHL': 'us', 'CLT': 'us', 'SLC': 'us',
+    'PDX': 'us', 'SAN': 'us', 'TPA': 'us', 'IAH': 'us', 'MCO': 'us',
+    'AUS': 'us', 'BNA': 'us', 'RDU': 'us', 'IND': 'us', 'CMH': 'us',
+    'MCI': 'us', 'OMA': 'us', 'ABQ': 'us', 'OKC': 'us', 'MEM': 'us',
+    'JAX': 'us', 'RIC': 'us', 'BUF': 'us', 'PIT': 'us', 'CLE': 'us',
+    'CVG': 'us', 'MKE': 'us', 'STL': 'us', 'SAT': 'us', 'HNL': 'us',
+    'ANC': 'us', 'SMF': 'us', 'ONT': 'ca', 'OAK': 'us',
+    'HKG': 'hk', 'TPE': 'tw', 'TSA': 'tw', 'KHH': 'tw',
+    'NRT': 'jp', 'HND': 'jp', 'KIX': 'jp', 'ITM': 'jp', 'NGO': 'jp',
+    'FUK': 'jp', 'CTS': 'jp', 'OKA': 'jp',
+    'ICN': 'kr', 'GMP': 'kr', 'PUS': 'kr',
+    'SIN': 'sg', 'BKK': 'th', 'DMK': 'th', 'KUL': 'my', 'CGK': 'id',
+    'MNL': 'ph', 'CEB': 'ph', 'HAN': 'vn', 'SGN': 'vn', 'DAD': 'vn',
+    'RGN': 'mm', 'PNH': 'kh', 'REP': 'kh', 'VTE': 'la',
+    'BOM': 'in', 'DEL': 'in', 'MAA': 'in', 'BLR': 'in', 'CCU': 'in',
+    'HYD': 'in', 'AMD': 'in', 'COK': 'in', 'PNQ': 'in', 'GOI': 'in',
+    'CMB': 'lk', 'DAC': 'bd', 'KTM': 'np', 'ISB': 'pk', 'KHI': 'pk', 'LHE': 'pk',
+    'LHR': 'gb', 'LGW': 'gb', 'STN': 'gb', 'LTN': 'gb', 'MAN': 'gb', 'EDI': 'gb', 'BHX': 'gb',
+    'CDG': 'fr', 'ORY': 'fr', 'MRS': 'fr', 'LYS': 'fr', 'NCE': 'fr',
+    'FRA': 'de', 'MUC': 'de', 'TXL': 'de', 'BER': 'de', 'HAM': 'de', 'DUS': 'de', 'CGN': 'de', 'STR': 'de',
+    'AMS': 'nl', 'BRU': 'be', 'LUX': 'lu',
+    'ZRH': 'ch', 'GVA': 'ch', 'BSL': 'ch',
+    'VIE': 'at', 'PRG': 'cz', 'BUD': 'hu', 'WAW': 'pl', 'KRK': 'pl',
+    'MXP': 'it', 'LIN': 'it', 'FCO': 'it', 'VCE': 'it', 'NAP': 'it', 'FLR': 'it', 'BGY': 'it',
+    'MAD': 'es', 'BCN': 'es', 'PMI': 'es', 'AGP': 'es', 'VLC': 'es', 'SVQ': 'es', 'BIO': 'es',
+    'LIS': 'pt', 'OPO': 'pt', 'FAO': 'pt',
+    'DUB': 'ie', 'CPH': 'dk', 'ARN': 'se', 'GOT': 'se',
+    'OSL': 'no', 'BGO': 'no', 'HEL': 'fi', 'RIX': 'lv', 'TLL': 'ee', 'VNO': 'lt',
+    'ATH': 'gr', 'SKG': 'gr', 'SOF': 'bg', 'OTP': 'ro', 'BEG': 'rs', 'ZAG': 'hr', 'LJU': 'si',
+    'KBP': 'ua', 'IEV': 'ua', 'ODS': 'ua',
+    'SVO': 'ru', 'DME': 'ru', 'VKO': 'ru', 'LED': 'ru',
+    'IST': 'tr', 'SAW': 'tr', 'ESB': 'tr', 'AYT': 'tr', 'ADB': 'tr',
+    'TLV': 'il', 'AMM': 'jo', 'BEY': 'lb', 'BAH': 'bh', 'KWI': 'kw',
+    'DXB': 'ae', 'AUH': 'ae', 'SHJ': 'ae', 'DOH': 'qa', 'MCT': 'om',
+    'RUH': 'sa', 'JED': 'sa', 'DMM': 'sa',
+    'CAI': 'eg', 'HBE': 'eg', 'SSH': 'eg',
+    'CMN': 'ma', 'RAK': 'ma', 'TUN': 'tn', 'ALG': 'dz',
+    'LOS': 'ng', 'ABV': 'ng', 'ACC': 'gh', 'NBO': 'ke', 'MBA': 'ke', 'ADD': 'et', 'DAR': 'tz',
+    'JNB': 'za', 'CPT': 'za', 'DUR': 'za', 'HRE': 'zw', 'LUN': 'zm',
+    'MRU': 'mu', 'SEZ': 'sc',
+    'SYD': 'au', 'MEL': 'au', 'BNE': 'au', 'PER': 'au', 'ADL': 'au', 'CBR': 'au', 'OOL': 'au', 'CNS': 'au',
+    'AKL': 'nz', 'WLG': 'nz', 'CHC': 'nz', 'ZQN': 'nz',
+    'NAN': 'fj', 'PPT': 'pf', 'GUM': 'gu',
+    'GRU': 'br', 'GIG': 'br', 'BSB': 'br', 'CNF': 'br', 'POA': 'br', 'CWB': 'br', 'FOR': 'br', 'REC': 'br', 'SSA': 'br',
+    'EZE': 'ar', 'COR': 'ar', 'MDZ': 'ar',
+    'SCL': 'cl', 'LIM': 'pe', 'BOG': 'co', 'MDE': 'co',
+    'UIO': 'ec', 'GYE': 'ec', 'CCS': 've', 'MVD': 'uy', 'ASU': 'py',
+    'PTY': 'pa', 'SJO': 'cr', 'GUA': 'gt', 'SAL': 'sv',
+    'MEX': 'mx', 'GDL': 'mx', 'MTY': 'mx', 'CUN': 'mx',
+    'YYZ': 'ca', 'YVR': 'ca', 'YUL': 'ca', 'YYC': 'ca', 'YEG': 'ca', 'YOW': 'ca',
+};
+
+/**
+ * 将 colo 代码转换为国家/地区代码 (ISO 3166-1 alpha-2 小写)
+ */
+export const getColoCountry = (colo: string): string | null => {
+    return coloCountryMap[colo.toUpperCase()] || null;
+};
+
+/**
+ * 获取指定 colo 对应的国旗图片 URL (ipdata.co 公开 CDN)
+ */
+export const getFlagUrl = (colo: string): string | null => {
+    const country = getColoCountry(colo);
+    return country ? `https://ipdata.co/flags/${country}.png` : null;
+};
+
+/**
+ * 剥离 getColoName 返回值开头的国旗 emoji (两个 Regional Indicator 字符)，
+ * 用于 Windows 平台下与国旗图片配合显示的纯文本。
+ */
+const stripLeadingFlagEmoji = (s: string): string => {
+    return s.replace(/^[\u{1F1E6}-\u{1F1FF}]{2}\s*/u, '');
+};
+
+/**
+ * 将 colo 代码转换为纯文本地区名称 (不含 emoji)
+ */
+export const getColoText = (colo: string): string => {
+    return stripLeadingFlagEmoji(getColoName(colo));
+};
+
+/**
+ * 检测当前是否运行在 Windows 平台。
+ * Windows 下的浏览器对国家旗 emoji 渲染为两个字母代码 (例如 "JP")，
+ * 因此在 Windows 下需要用真实国旗图片来替代。
+ */
+export const isWindowsPlatform = (): boolean => {
+    if (typeof navigator === 'undefined') return false;
+    const ua = navigator.userAgent || '';
+    const platform = (navigator as any).userAgentData?.platform || navigator.platform || '';
+    return /Windows/i.test(ua) || /Win/i.test(platform);
+};
